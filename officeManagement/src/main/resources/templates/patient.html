@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Ajouter un patient</h3>
+            <hr />
+            <form od="PatientForm" method="post" th:action="@{/patient/create}">
+            <input type="hidden" name="patientId" th:value="${patient.patientId}"/>
+                <div class="form-group">
+                    <label for="firstNamePatient" class="cols-sm-2 control-label">Prenom</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${patient.firstNamePatient}" id="firstNamePatient" name="firstNamePatient" roleId="firstNamePatient"  placeholder="Entrer le prenom" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastNamePatient" class="cols-sm-2 control-label">Nom</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${patient.lastNamePatient}" id="lastNamePatient" name="lastNamePatient" roleId="lastNamePatient"  placeholder="Entrer le nom" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cinPatient" class="cols-sm-2 control-label">C.I.N</label><span class="bg-danger pull-right" th:if="${cinExists}">C.I.N existe</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${patient.cinPatient}" id="cinPatient" name="cinPatient" roleId="cinPatient"  placeholder="Numero de la carte nationale d'identité" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="dateString">Date de naissance :</label>
+                    <div class="input-append date form_datetime input-group" data-date="08/04/2019">
+                        <input class="form-control" type="text" value=""
+                               th:value="${dateString}" name="dateString"
+                               id="dateString" required="required"/>
+                        <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phonePatient" class="cols-sm-2 control-label">Numero de téléphone</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${patient.phonePatient}" id="phonePatient" name="phonePatient" roleId="phonePatient"  placeholder="xxx-xxx-xxxx" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailPatient" class="cols-sm-2 control-label">Adresse E-mail</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="email" class="form-control" th:value="${patient.emailPatient}" id="emailPatient" name="emailPatient" roleId="emailPatient"  placeholder="Entrer l'adresse E-mail"/>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label for="adressePatient" class="cols-sm-2 control-label">Adresse</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${patient.adressePatient}" id="adressePatient" name="adressePatient" roleId="adressePatient"  placeholder="Entrer l'adresse" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="weight" class="cols-sm-2 control-label">Poid</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${measure.weight}" id="weight" name="weight" roleId="weight"  placeholder="Entrer le poid"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="length" class="cols-sm-2 control-label">Taille</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                            <input style="text-transform: uppercase;" type="text" class="form-control" th:value="${measure.length}" id="length" name="length" roleId="length"  placeholder="Entrer la taille"/>
+                        </div>
+                    </div>
+                </div>
+                
+				<input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Ajouter le patient !</button>
+                </div>
+                
+                <hr />
+                
+				<div class="form-group ">
+                    <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/mainPage}">Cancel</a>
+                </div>
+            </form>
+
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

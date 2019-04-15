@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main" style="width: 100%;">
+   <div class="table-responsive">
+		<table id="example"
+			class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prènom</th>
+					<th>C.I.N</th>
+					<th>Date de naissance</th>
+					<th>Numero de téléphone</th>
+					<th>Adresse E-mail</th>
+					<th>Adresse</th>
+					<th>Poid</th>
+					<th>Taille</th>
+					<th>Date mesure</th>
+					<!-- <th>Planifier un rendez-vous</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="patients : ${allPatients}">
+					<td data-th-text="${patients.lastNamePatient}">...</td>
+					<td data-th-text="${patients.firstNamePatient}">...</td>
+					<td data-th-text="${patients.cinPatient}">...</td>
+					<td data-th-text="${patients.dateNaissancePatient}">...</td>
+					<td data-th-text="${patients.phonePatient}">...</td>
+					<td data-th-text="${patients.emailPatient}">...</td>
+					<td data-th-text="${patients.adressePatient}">...</td>
+					<td data-th-text="${patients.pm.weight}">...</td>
+					<td data-th-text="${patients.pm.length}">...</td>
+					<td data-th-text="${patients.pm.dateMeasure}">...</td>
+					<td><a data-th-text="Rendez-vous" th:href="@{/appointment/create?cp=}+${patients.cinEncrypted}">...</a></td>
+					<td><a data-th-text="Modifier+' '+info+' '+patient" th:href="@{/patient/addMeasure?cp=}+${patients.cinEncrypted}">...</a></td>
+					<td><a data-th-text="Consultation" th:href="@{/consul/addConsul?cp=}+${patients.cinEncrypted}">...</a></td>
+					<td><a data-th-text="Historique+' '+consultation" th:href="@{/consul/allConsulsPatient?cp=}+${patients.cinEncrypted}">...</a></td>
+					<td><a data-th-text="Historique+' '+des+' '+paiement" th:href="@{/pai/allbyC?cp=}+${patients.cinEncrypted}">...</a></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
+</script>
+
+</body>
+</html>

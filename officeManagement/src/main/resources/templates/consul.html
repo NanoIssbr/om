@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body roleId="page-top" data-spy="scroll"
+	data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar" />
+<div class="container main">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>CONSULTATION</h3>
+			<form th:action="@{/consul/addConsul}" enctype="multipart/form-data"
+				method="post" id="consultationForm">
+				<input type="hidden" name="id" th:value="${consultation.id}" />
+
+				<div class="form-group">
+					<label for="lastNamePatient" class="cols-sm-2 control-label">Nom
+						du patient</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa"
+								aria-hidden="true"></i></span> <input
+								style="text-transform: uppercase;" type="text"
+								class="form-control"
+								th:value="${consultation.patient.lastNamePatient}"
+								id="patient.lastNamePatient" name="patient.lastNamePatient"
+								roleId="patient.lastNamePatient" placeholder="Entrer le nom"
+								readOnly="readOnly" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="firstNamePatient" class="cols-sm-2 control-label">Prenom
+						du patient</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa"
+								aria-hidden="true"></i></span> <input
+								style="text-transform: uppercase;" type="text"
+								class="form-control"
+								th:value="${consultation.patient.firstNamePatient}"
+								id="patient.firstNamePatient" name="patient.firstNamePatient"
+								roleId="patient.firstNamePatient" placeholder="Entrer le prenom"
+								readOnly="readOnly" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="cinPatient" class="cols-sm-2 control-label">C.I.N
+						du patient</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-users fa"
+								aria-hidden="true"></i></span> <input
+								style="text-transform: uppercase;" type="text"
+								class="form-control"
+								th:value="${consultation.patient.cinPatient}"
+								id="patient.cinPatient" name="patient.cinPatient"
+								roleId="patient.cinPatient"
+								placeholder="Numero de la carte nationale d'identité"
+								readOnly="readOnly" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="isControle" class="cols-sm-2 control-label">Contrôle
+						?</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<input type="checkbox" id="isControle"
+								th:checked="${consultation.isControle}" name="isControle"
+								roleId="isControle" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="description">Notes:</label>
+					<textarea th:value="${consultation.description}"
+						class="form-control" name="description" id="description"
+						placeholder="Description"></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="file" class="cols-sm-2 control-label">Documents</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<input type="file" id="file" name="file" multiple="multiple"
+								roleId="file" placeholder="FILE" />
+						</div>
+					</div>
+				</div>
+				<!-- MODAL DE PAIEMENT -->
+
+				<div id="modalPaiement" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Informations du paiement</h5>
+								<!-- <button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button> -->
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="moyenPaiement">Veuillez choisir le moyen de
+										paiement</label>
+									<!-- <span class="bg-danger pull-right" th:if="${accountNotChoosen}">Choose an account</span> -->
+									<select class="form-control"
+										th:value="${consultation.paiement.moyenPaiement}" id="paiement.moyenPaiement" name="paiement.moyenPaiement" roleId="paiement.moyenPaiement" required="required">
+										<option th:each="mp : ${consultation.moyensPaiements}" th:text="${mp.moyenPaiement}">...</option>
+									</select> <br />
+								</div>
+								
+								<div class="form-group">
+									<label for="montant">Montant</label>
+									<input type="number" class="form-control" th:value="${consultation.paiement.montant}"
+										id="paiement.montant" name="paiement.montant" roleId="paiement.montant" placeholder="Entrer le montant" required="required" />
+								</div>
+							</div>
+							<div class="modal-footer">
+								<!-- <button type="button" class="btn btn-primary">Save
+									changes</button> -->
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- MODAL DE PAIEMENT -->
+
+
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+
+				<div class="form-group">
+					<label for="file" class="cols-sm-2 control-label">Informations
+						du paiement</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<a style="cursor: pointer;" data-toggle="modal"
+								data-target="#modalPaiement">Entrer les informations du
+								paiement</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group ">
+					<button type="submit"
+						class="btn btn-primary btn-lg btn-block login-button">Ajouter
+						la consultation !</button>
+				</div>
+			</form>
+
+			<div></div>
+
+			<div class="col-md-6"></div>
+		</div>
+	</div>
+	<br />
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>

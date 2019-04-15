@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main" style="width: 100%;">
+   <div class="table-responsive">
+		<table id="example"
+			class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prènom</th>
+					<th>C.I.N</th>
+					<th>Poid</th>
+					<th>Taille</th>
+					<th>Date mesure</th>
+					<th>Date de consultation</th>
+					<th>Notes</th>
+					<th>Opération</th>
+					<th>Prix</th>
+					<th>Docs</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="consultation : ${allConsultations}">
+					<td data-th-text="${consultation.patient.lastNamePatient}">...</td>
+					<td data-th-text="${consultation.patient.firstNamePatient}">...</td>
+					<td data-th-text="${consultation.patient.cinPatient}">...</td>
+					<td data-th-text="${consultation.patient.pm.weight}">...</td>
+					<td data-th-text="${consultation.patient.pm.length}">...</td>
+					<td data-th-text="${consultation.patient.pm.dateMeasure}">...</td>
+					<td data-th-text="${consultation.dateConsultation}">...</td>
+					<td data-th-text="${consultation.description}">...</td>
+					<td th:if="${consultation.isControle}">Contrôle</td>
+					<td th:if="${consultation.isControle == false}">Consultation</td>
+					<td th:if="${consultation.paiement.montant != null}" data-th-text="${consultation.paiement.montant}+' '+Dhs">...</td>
+					<td th:if="${consultation.paiement.montant == null}">0 Dhs</td>
+					<td>
+						<ul>
+							<li th:each="doc : ${consultation.listDocuments}">
+								<a th:href="${doc.urlDoc}" th:text="${doc.displayName}" />
+							</li>
+						</ul>
+					</td>						
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
+</script>
+
+</body>
+</html>
