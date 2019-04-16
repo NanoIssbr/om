@@ -19,7 +19,7 @@ public class PaiementServiceImpl implements PaiementService {
 		return paiDao.save(paiement);
 	}
 	@Override
-	public List<Paiement> finPaiementBycinPatient(String cin) {
+	public List<Paiement> findPaiementBycinPatient(String cin) {
 		return paiDao.findPaiementBycinPatient(cin);
 	}
 

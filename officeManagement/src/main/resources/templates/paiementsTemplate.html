@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body roleId="page-top" data-spy="scroll"
+	data-target=".navbar-fixed-top">
+<div class="container main">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--<h1 class="page-header">Dashboard</h1>-->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<div class="table-responsive">
+		<table id="example" style="border: 1px solid black;">
+			<thead style="border: 1px solid black;">
+				<tr style="border: 1px solid black;">
+					<th style="border: 1px solid black;">Patient</th>
+					<th style="border: 1px solid black;">Montant</th>
+					<th style="border: 1px solid black;">Moyen de paiement</th>
+					<th style="border: 1px solid black;">Date de paiement</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="border: 1px solid black;" data-th-each="paiement : ${paiements}">
+					<td style="border: 1px solid black;" data-th-text="${paiement.patient.lastNamePatient}+' '+${paiement.patient.firstNamePatient}">...</td>
+					<td style="border: 1px solid black;" data-th-text="${paiement.montant}">...</td>
+					<td style="border: 1px solid black;" data-th-text="${paiement.moyenPaiement}">...</td>
+					<td style="border: 1px solid black;" data-th-text="${paiement.datePaiement}">...</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
+</script>
+</body>
+</html>
