@@ -96,7 +96,7 @@ public class HomeController {
 
 	@RequestMapping("/mainPage")
 	public String userFront(Principal principal, Model model) {
-		List<Appointment> listAppointments = appointmentService.findAll();
+		List<Appointment> listAppointments = appointmentService.getFuturAppointments();
 		model.addAttribute("allApointments", listAppointments);
 		List<Patient> listPatients = patientService.findAll();
 		model.addAttribute("allPatients", listPatients);
